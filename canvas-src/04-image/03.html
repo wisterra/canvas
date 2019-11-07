@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Image</h1>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      class Ilbuni {
+        constructor() {
+      
+          const imgElem = new Image(); // 이미지 객체를 만든다
+          const n = Math.floor(Math.random() * 4) + 1;
+          // imgElem.src = '../images/ilbuni' + n + '.png';
+          imgElem.src = `../images/ilbuni${n}.png`;
+          imgElem.addEventListener('load', () => {
+            context.drawImage(imgElem, Math.random()*canvas.width*0.9, Math.random()*canvas.height*0.9, 60, 80);
+          });
+        }
+      }
+
+      new Ilbuni();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

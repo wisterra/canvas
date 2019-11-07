@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      // beginPath
+      // arc
+      // closePath
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+
+      // 수치를 그대로 쓸 수 없고 라디안으로 변환시켜줘야하기 때문에
+      // 2파이는 360
+      // 1라디안 = 2파이 / 360
+      function toRadian(d) {
+        // d 가도 곱하기 1 degre
+        return d * Math.PI / 180;
+      }
+
+      context.beginPath();
+      // 동그라미는 arc. 이것은 호 그리기임 원그리기가 따로 없음
+      context.arc(200, 200, 100, 0, toRadian(60), false); // 위치 크기 시작각도 끝각도 , 방향
+      context.stroke();
+
+      // moveTo를 하거나 패스를 새로시작해줘야 이전패스랑 이어지지 않음
+      context.beginPath();
+      context.arc(400, 50, 50, 0, toRadian(360), false); // 위치 크기 시작각도 끝각도 , 방향
+      context.stroke();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

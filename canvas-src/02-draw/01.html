@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      // fillRect
+      // clearRect
+      // strokeRect
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      console.log(context);
+
+      // 0 0 위치에 크기 100 200짜리 사각형을 그린다.
+      context.fillRect(0, 0, 100, 200);
+
+      context.fillStyle = 'rgba(0, 0, 0, 0.5)'; // 팔레트에서 색을 지금 찍었다!
+      context.fillRect(200, 200, 100, 200);
+
+      context.clearRect(50, 50, 20, 20);
+
+      context.strokeRect(200, 50, 100, 100);
+      // 이렇게 그린것들은 객체가아니라 그냥 그린것일 뿐이다.
+
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

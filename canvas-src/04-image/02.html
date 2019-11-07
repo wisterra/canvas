@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Image</h1>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      let xPos = 0;
+      let yPos = 0;
+
+      // const imgElem = document.createElement('img');
+      const imgElem = new Image();
+      imgElem.src = '../images/ilbuni1.png';
+      // 이미지가 로드 될 때까지 기다려주세요
+      imgElem.addEventListener('load', draw);
+
+      function draw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(imgElem, xPos++, yPos++, 60, 80);
+        requestAnimationFrame(draw);
+      }
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

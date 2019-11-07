@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .canvas {
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+<h1>Transform</h1>
+<canvas class="canvas" width="500" height="300"></canvas>
+
+<script>
+  let angle = 0;
+  const canvas = document.querySelector('.canvas');
+  const context = canvas.getContext('2d');
+
+  function toRadian(d){
+    return d * Math.PI / 180;
+  }
+
+  function draw(){
+    context.clearRect(0,0, canvas.width, canvas.height);
+    context.setTransform(1, 0, 0, 1, 0, 0); // 초기화 먼저 해줌
+    context.translate(250, 150);
+    context.rotate(toRadian(angle++)); // 도는 기준은 canvas 0,0 위치
+    context.translate(-250, -150);
+    context.drawImage(imgElem, 190, 75, 120, 150);
+
+    context.setTransform(1, 0, 0, 1, 0, 0); // 초기화 먼저 해줌
+
+    context.arc(250, 150, 7, 0, Math.PI * 2, false);
+    context.fillStyle = 'red';
+    context.fill();
+
+    if (angle >= 360) {
+      angle = 0;
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+
+
+  const imgElem = new Image();
+  imgElem.src = '../images/ilbuni1.png';
+  imgElem.addEventListener('load', draw);
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

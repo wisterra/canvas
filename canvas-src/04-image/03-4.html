@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        margin: 0;
+        background: pink;
+      }
+      canvas {
+        background: #eee;
+      }
+      .btn-save {
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+    <button class="btn-save">이미지 저장</button>
+
+    <script>
+      const saveBtn = document.querySelector('.btn-save');
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+      let drawingMode = false; // 이 변수가 true일 때만 그려지게
+
+      // 클릭했을때 그려주는 앱 만들기
+
+
+      const ilbuniImgs = [];
+      const img1 = new Image();
+      img1.src = '../images/ilbuni1.png';
+      const img2 = new Image();
+      img2.src = '../images/ilbuni2.png';
+      const img3 = new Image();
+      img3.src = '../images/ilbuni3.png';
+      const img4 = new Image();
+      img4.src = '../images/ilbuni4.png';
+      ilbuniImgs.push(img1);
+      ilbuniImgs.push(img2);
+      ilbuniImgs.push(img3);
+      ilbuniImgs.push(img4);
+      console.log(ilbuniImgs);
+
+      class Ilbuni {
+        constructor() { // 초기화를 해주는 함수 정도로..
+
+        }
+
+        draw(index, xPos, yPos) {
+          context.drawImage(ilbuniImgs[imgIndex], xPos, yPos, 60, 60);
+        }
+      }
+
+      // instance
+      const ilbuni = new Ilbuni();
+      let imgIndex;
+
+      canvas.addEventListener('mousemove', e => {
+        if (drawingMode) {
+          ilbuni.draw(imgIndex, e.clientX, e.clientY);
+        }
+      });
+
+      canvas.addEventListener('mousedown', () => {
+        drawingMode = true;
+        imgIndex = Math.floor(Math.random() * 4);
+      });
+
+      canvas.addEventListener('mouseup', () => {
+        drawingMode = false;
+      });
+
+      saveBtn.addEventListener('click', () => {
+        const url = canvas.toDataURL('image/png');
+        const imgElem = new Image();
+        imgElem.src = url;
+        document.body.appendChild(imgElem);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

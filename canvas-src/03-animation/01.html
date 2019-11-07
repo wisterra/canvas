@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>requestAnimationFrame</h1>
+    <canvas class="canvas" width="500" height="300"></canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+
+      let n = 0;
+      let xPos = 0;
+      let timerId;
+
+      function loop() {
+        console.log(n++);
+
+        // 지우기
+        console.time();
+        context.clearRect(0, 0, canvas.width, canvas.height); // 화면을 통채로 지움
+        console.timeEnd();
+        // console.time();
+        // canvas.width = 500; // 이 경우는 캔바스 크기를 다시설정하면 새로그려짐
+        // console.timeEnd();
+
+        context.beginPath();
+        context.arc(xPos++, 100, 20, 0, Math.PI * 2, false);
+        context.fill();
+
+        timerId = requestAnimationFrame(loop); // window 전역객 // 그릴준비가 되었을때 그림 // setInterval 대신씀 (이건 무대뽀라서..)
+      }
+
+      loop();
+
+      document.body.addEventListener('click', () => {
+        cancelAnimationFrame(timerId);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

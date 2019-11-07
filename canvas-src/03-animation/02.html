@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .canvas {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>setInterval</h1>
+    <canvas class="canvas" width="500" height="300"></canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+
+      let n = 0;
+      let xPos = 0;
+      let timerId;
+
+      function loop() {
+        // 지우기
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        context.beginPath();
+        context.arc(xPos, 100, 20, 0, Math.PI * 2, false);
+        xPos += 10;
+        context.fill();
+      }
+
+      timerId = setInterval(loop, 100);
+
+      document.body.addEventListener('click', () => {
+        clearInterval(timerId);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

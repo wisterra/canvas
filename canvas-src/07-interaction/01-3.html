@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      /*width: 100vw;*/
+      /*height: 100vh;*/
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+<h1>Interaction</h1>
+<canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+<script>
+  const canvas = document.querySelector('.canvas');
+  const context = canvas.getContext('2d');
+
+
+  const info = {
+    x: window.innerWidth*0.2,
+    y: window.innerHeight*0.2,
+    width: window.innerWidth*0.2,
+    height: window.innerHeight*0.2
+  };
+
+  function draw() {
+    context.fillRect(info.x, info.y, info.width, info.height);
+  }
+
+  // 클릭되는 영역을 계속 바꾸는 것 보다는 클릭될때 체크를 하는 것이 더 좋다아
+  canvas.addEventListener('click', e => {
+    const x = e.layerX * (canvas.width / window.innerWidth);
+    const y = e.layerY * (canvas.height / window.innerHeight);
+
+    if (x > info.x && x < info.x + info.width &&
+      y > info.y && y < info.y + info.height) {
+      console.log(e.clientX, e.clientY, e.layerX, e.layerY);
+    }
+  });
+
+  window.addEventListener('resize', setLayout);
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

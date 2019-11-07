@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Image</h1>
+    <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+    <script>
+      const canvas = document.querySelector('.canvas');
+      const context = canvas.getContext('2d');
+
+      // 클릭한 위치에 1분이를 꽂아준다.
+      // 이것을 랜덤하게
+      // 클래스로 만들어서 생성해주는 느낌으로..
+
+
+      let drawingMode = false; // 이 변수가 true일 때만 그려지게
+
+      class Ilbuni {
+        constructor() {
+          this.imgElem = new Image();
+          const n = Math.floor(Math.random() * 4) + 1;
+          // imgElem.src = '../images/ilbuni' + n + '.png';
+          this.imgElem.src = `../images/ilbuni${n}.png`;
+        }
+
+        draw(xPos, yPos) { // 초기화를 해주는 함수 정도로..
+          context.drawImage(this.imgElem, xPos, yPos, 60, 60); // 4는 범위로 생각하면 된다
+        }
+      }
+
+      // instance
+      const ilbuni = new Ilbuni();
+
+      canvas.addEventListener('mousemove', e => {
+        if (drawingMode) {
+          ilbuni.draw(e.clientX, e.clientY);
+        }
+      });
+
+      canvas.addEventListener('mousedown', () => {
+        drawingMode = true;
+      });
+
+      canvas.addEventListener('mouseup', () => {
+        drawingMode = false;
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

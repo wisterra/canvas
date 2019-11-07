@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+<!--<canvas></canvas>-->
+<script src="Box.js"></script>
+<script>
+  let selectedBox;
+  let phase; // 1: 기본상태 2: 패널 등장 3: 패널 보기
+  const boxArray = []; // Box의 인스턴스들을 넣을 배열
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  document.body.appendChild(canvas);
+
+
+  function init() {
+    setLayout();
+    let x;
+    let y;
+    let speed;
+    let box;
+
+    for (let i = 0; i < 10; i++) {
+      x = Math.random() * window.innerWidth * 0.9;
+      y = Math.random() * window.innerHeight * 0.9;
+      speed = Math.random() * 2 + 1;
+      box = new Box({
+        index: i,
+        x: x,
+        y: y,
+        speed: speed,
+        width: 100,
+        height: 100
+      });
+      box.draw();
+      boxArray.push(box);
+    }
+
+    phase = 1;
+    render();
+  }
+
+  function render() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    let box;
+
+    for (let i = 0; i < boxArray.length; i++) {
+      box = boxArray[i];
+
+      box.y -= box.speed;
+
+      if (box.y < -box.height) {
+        box.y = canvas.height;
+      }
+
+      box.draw();
+
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  function setLayout() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', setLayout);
+
+  const box = new Box(100, 250);
+  box.draw();
+
+  function boxClickHandler(e) {
+    let box;
+    // console.log(e);
+    for (let i = 0;
+         i < boxArray.length;
+         i++
+    ) {
+
+      box = boxArray[i];
+      if (e.layerX > box.x && e.layerX < box.x + box.width && e.layerY > box.y && e.layerY < box.y + box.height) {
+        selectedBox = box;
+      }
+    }
+        console.log(selectedBox.index);
+  }
+
+  init();
+
+  window.addEventListener('resize', setLayout);
+  canvas.addEventListener('click', boxClickHandler);
+</script>
+</body>
+</html>
